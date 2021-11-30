@@ -7,10 +7,28 @@ async function getBooks(req, res) {
         res.end(JSON.stringify(books))  
     }
     catch(error) {
+        console.log(error)
+    }
+}
 
+async function getBook(req, res, id) {
+    try {
+        const book = await Book.findById(id)
+        if(!book) {
+            res.writeHead(404, {'Content-type': 'application/json'})
+            res.end(JSON.stringify({message: 'Book not found'}))
+        }
+        else {
+            res.writeHead(200, {'Content-type': 'application/json'})
+            res.end(JSON.stringify(book))
+        }
+    }
+    catch(error) {
+        console.log(error)
     }
 }
 
 module.exports = {
-    getBooks
+    getBooks,
+    getBook
 }

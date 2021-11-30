@@ -1,16 +1,20 @@
 const http = require('http')
 require('dotenv/config')
-const books = require('./data/books')
+
+const {getBooks} = require('./controllers/bookController')
+
 
 const PORT = process.env.PORT
 
 const server = http.createServer((req, res) => {
-    res.writeHead(200, {
-        'Content-Type': 'application/json'
-    })
-    res.end(JSON.stringify(books))
+    if(req.url == '/api/books' && req.method == 'GET') {
+        getBooks(req, res)
+    }
+    else {
+        res.writeHead(404, {'Content-type': 'application/json'})
+        res.end(JSON.stringify({message: 'Route Not Found'}))
+    }
 })
-
 
 
 server.listen(PORT)

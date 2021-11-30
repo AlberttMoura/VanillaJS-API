@@ -1,1 +1,1 @@
-## Developing an API using only vanilla JavaScript
+## Developing a REST API using only vanilla Node.js
